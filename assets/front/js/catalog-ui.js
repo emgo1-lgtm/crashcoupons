@@ -180,7 +180,7 @@
         const section = document.querySelector('.all-coupons-section');
         if (!section) return;
         let headerEl = section.querySelector('.catalog-header-bar');
-        const origH2 = section.querySelector('h2');
+        const origH2 = section.querySelector('h1, h2');
 
         if (!headerEl && origH2) {
             headerEl = document.createElement('div');
@@ -192,7 +192,7 @@
         }
 
         if (!headerEl) return;
-        const h2 = headerEl.querySelector('h2');
+        const h2 = headerEl.querySelector('h1, h2');
         let resetBtn = headerEl.querySelector('.catalog-reset-btn');
 
         if (currentMode === 'all') {
