@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /adbluemedia-locker.html
 
 Sitemap: https://crashcoupons.online/sitemap.xml
