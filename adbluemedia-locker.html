@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light" data-accent-color="a-c-c5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Human Verification | CrashCoupons.com</title>
+    <link rel="icon" type="image/x-icon" href="./public/assets/uploads/favicons/favicon_69cbf2b8bcc8e.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="./assets/front/js/coupons-data.js"></script>
+    <style>
+        :root {
+            --text: #2b303a;
+            --text-second: #596173;
+            --text-third: #8792a8;
+            --background: #f9fbfd;
+            --background-card: #ffffff;
+            --background-secondary: #f5f7fc;
+            --primary: #e47911;
+            --accent: #ff9900;
+            --accent-hover: #e68a00;
+            --accent-soft: rgba(255, 153, 0, 0.14);
+            --accent-border: rgba(255, 153, 0, 0.38);
+            --border-light: #e7ebf2;
+            --border-subtle: #eff2f7;
+            --success: #4bb543;
+            --shadow-lg: 0 24px 60px rgba(26, 31, 43, 0.14);
+        }
+
+        [data-bs-theme="dark"] {
+            --text: #f5f7fa;
+            --text-second: #b8bfcc;
+            --text-third: #8792a8;
+            --background: #13171f;
+            --background-card: #1a1f2b;
+            --background-secondary: #13171f;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --accent-soft: rgba(255, 153, 0, 0.18);
+            --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lexend', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .abm-locker-card {
+            width: 100%;
+            max-width: 520px;
+            background: var(--background-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+            animation: abmFadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes abmFadeUp {
+            from { opacity: 0; transform: translateY(16px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Dark Slate Header with CrashCoupons Logo */
+        .abm-header {
+            background: linear-gradient(135deg, #1a1f2b 0%, #242b3b 100%);
+            padding: 22px 24px 20px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .abm-header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -40px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 153, 0, 0.28) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .abm-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), #ffb84d);
+        }
+
+        .abm-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .abm-logo {
+            height: 32px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+        }
+
+        .abm-theme-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .abm-theme-btn:hover {
+            background: rgba(255, 255, 255, 0.16);
+            transform: rotate(-12deg);
+        }
+
+        .abm-badges {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .abm-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 500;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.11);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .abm-badge i {
+            color: var(--accent);
+            font-size: 12px;
+        }
+
+        .abm-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .abm-subtitle {
+            color: #c5ccd9;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.45;
+            max-width: 420px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Body */
+        .abm-body {
+            padding: 20px 22px 18px;
+        }
+
+        /* CrashCoupons-style Ticket Banner with Blurred Code */
+        .abm-ticket-banner {
+            background: var(--accent-soft);
+            border: 1.5px dashed var(--accent-border);
+            border-radius: 14px;
+            padding: 14px 20px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .abm-ticket-banner::before,
+        .abm-ticket-banner::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--background-card);
+            transform: translateY(-50%);
+        }
+
+        .abm-ticket-banner::before { left: -9px; border-right: 1.5px dashed var(--accent-border); }
+        .abm-ticket-banner::after  { right: -9px; border-left: 1.5px dashed var(--accent-border); }
+
+        .abm-ticket-label {
+            display: block;
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .abm-code-preview {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            background: var(--background-card);
+            border: 1px solid var(--accent-border);
+            border-radius: 10px;
+            padding: 6px 14px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--text);
+        }
+
+        .abm-code-blur {
+            filter: blur(4.5px);
+            user-select: none;
+            -webkit-user-select: none;
+            color: var(--text-third);
+            margin-right: 2px;
+        }
+
+        /* Unlocked State (ONLY shown after 2 completed offers) */
+        .abm-unlocked-box {
+            display: none;
+            text-align: center;
+            padding: 18px 14px;
+            background: var(--background-secondary);
+            border: 1.5px solid var(--success);
+            border-radius: 14px;
+            margin-bottom: 14px;
+        }
+
+        .abm-unlocked-box.show {
+            display: block;
+        }
+
+        .abm-unlocked-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--success);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .abm-unlocked-code {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            background: var(--background-card);
+            border: 1.5px dashed var(--accent);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            word-break: break-all;
+        }
+
+        .abm-copy-btn {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 6px 16px rgba(255, 153, 0, 0.3);
+            transition: background 0.18s ease;
+        }
+
+        .abm-copy-btn:hover {
+            background: var(--primary);
+        }
+
+        /* Status & Progress Strip */
+        .abm-status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: var(--background-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-size: 12.5px;
+        }
+
+        .abm-status-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .abm-pulse-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.6);
+            animation: abmPulse 1.6s infinite;
+            flex-shrink: 0;
+        }
+
+        .abm-status-bar.verified .abm-pulse-dot {
+            background: var(--success);
+            animation: none;
+        }
+
+        @keyframes abmPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.55); }
+            70%  { box-shadow: 0 0 0 8px rgba(255, 153, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0); }
+        }
+
+        .abm-progress-pill {
+            background: var(--accent-soft);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .abm-offers-label {
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+            color: var(--text-third);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Live Offers Container */
+        #offerContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding: 3px 2px;
+        }
+
+        .abm-offer-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            text-decoration: none;
+            background: var(--background-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 12px 14px;
+            color: var(--text);
+            transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+            cursor: pointer;
+        }
+
+        .abm-offer-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            background: var(--background-card);
+            box-shadow: 0 8px 20px rgba(255, 153, 0, 0.14);
+        }
+
+        .abm-offer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .abm-offer-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--accent-soft);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .abm-offer-info {
+            min-width: 0;
+        }
+
+        .abm-offer-title {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 2px;
+            word-break: break-word;
+        }
+
+        .abm-offer-sub {
+            font-size: 12px;
+            color: var(--text-second);
+            line-height: 1.35;
+            word-break: break-word;
+        }
+
+        .abm-offer-cta {
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 10px;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 12px rgba(255, 153, 0, 0.28);
+            transition: background 0.18s ease;
+            flex-shrink: 0;
+        }
+
+        .abm-offer-item:hover .abm-offer-cta {
+            background: var(--primary);
+        }
+
+        .abm-state-box {
+            background: var(--background-secondary);
+            border: 1px dashed var(--border-light);
+            border-radius: 14px;
+            padding: 22px 16px;
+            text-align: center;
+            color: var(--text-second);
+            font-size: 13px;
+        }
+
+        .abm-spinner {
+            width: 24px;
+            height: 24px;
+            margin: 0 auto 10px;
+            border: 3px solid rgba(255, 153, 0, 0.22);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: abmSpin 0.8s linear infinite;
+        }
+
+        @keyframes abmSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .abm-retry-btn {
+            margin-top: 10px;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 9px;
+            padding: 8px 16px;
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .abm-retry-btn:hover {
+            background: var(--primary);
+        }
+
+        .abm-checking-box {
+            display: none;
+            margin-top: 12px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-border);
+            color: var(--text);
+            font-size: 12.5px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .abm-checking-box.show {
+            display: flex;
+        }
+
+        .abm-mini-spin {
+            width: 16px;
+            height: 16px;
+            border: 2.5px solid rgba(255, 153, 0, 0.25);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: abmSpin 0.8s linear infinite;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        .abm-footer {
+            background: var(--background-secondary);
+            border-top: 1px solid var(--border-light);
+            padding: 13px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 11.5px;
+            color: var(--text-third);
+        }
+
+        .abm-trust-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .abm-trust-item i {
+            color: var(--accent);
+            font-size: 13px;
+        }
+
+        @media (max-width: 480px) {
+            .abm-header { padding: 18px 16px 16px; }
+            .abm-body   { padding: 16px; }
+            .abm-title  { font-size: 18px; }
+            .abm-offer-cta { padding: 7px 11px; font-size: 12px; }
+            .abm-footer { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="abm-locker-card" id="adblueLocker">
+        <!-- CrashCoupons Branded Header -->
+        <div class="abm-header">
+            <div class="abm-header-top">
+                <img
+                    src="./public/assets/uploads/logo_lights/logo_light_69cbf7907a240.png"
+                    onerror="this.onerror=null; this.src='https://www.crashcoupons.com/public/assets/uploads/logo_lights/logo_light_69cbf7907a240.png';"
+                    alt="CrashCoupons.com Logo"
+                    class="abm-logo"
+                >
+                <button type="button" class="abm-theme-btn" id="lockerThemeToggle" title="Toggle Dark / Light Mode" aria-label="Toggle Dark / Light Mode">
+                    <i class="bi bi-moon-stars-fill" id="lockerThemeIcon"></i>
+                </button>
+            </div>
+
+            <div class="abm-badges">
+                <span class="abm-badge">
+                    <i class="bi bi-shield-check"></i>
+                    Human Verification
+                </span>
+                <span class="abm-badge">
+                    <i class="bi bi-ticket-perforated-fill"></i>
+                    247 codes left
+                </span>
+            </div>
+
+            <h1 class="abm-title">Verify to Unlock Your Full Code</h1>
+            <p class="abm-subtitle">
+                Complete <strong>2 quick free offers</strong> below to prove you're human and unlock your verified CrashCoupons code immediately.
+            </p>
+        </div>
+
+        <!-- Body -->
+        <div class="abm-body">
+            <!-- Ticket-style Locked Code Preview -->
+            <div class="abm-ticket-banner" id="lockedTicket">
+                <span class="abm-ticket-label" id="ticketTitle">Your Verified Code is Reserved</span>
+                <div class="abm-code-preview" aria-label="Locked code preview">
+                    <span class="abm-code-blur">XXXX-XXXX-</span><span id="ticketTail">9K4M</span>
+                </div>
+            </div>
+
+            <!-- Unlocked Code Box (hidden until 2 offers are completed) -->
+            <div class="abm-unlocked-box" id="unlockedBox">
+                <div class="abm-unlocked-badge">
+                    <i class="bi bi-patch-check-fill"></i>
+                    Verification Complete (2/2) — Code Unlocked!
+                </div>
+                <div class="abm-unlocked-code" id="unlockedCodeText"></div>
+                <button type="button" class="abm-copy-btn" id="copyUnlockedBtn">
+                    <i class="bi bi-clipboard-check"></i>
+                    <span id="copyBtnLabel">Copy Code</span>
+                </button>
+            </div>
+
+            <!-- Live Status & 0/2 Progress -->
+            <div class="abm-status-bar" id="statusBar">
+                <div class="abm-status-left">
+                    <span class="abm-pulse-dot"></span>
+                    <span id="statusText">Waiting for offer completion...</span>
+                </div>
+                <span class="abm-progress-pill" id="progressPill">0 / 2 Completed</span>
+            </div>
+
+            <!-- Live AdBlueMedia Offers -->
+            <div id="offersSection">
+                <div class="abm-offers-label">
+                    <span>Complete 2 Free Offers Below</span>
+                    <span><i class="bi bi-lightning-charge-fill" style="color: var(--accent);"></i> Auto Unlock</span>
+                </div>
+
+                <div id="offerContainer">
+                    <div class="abm-state-box">
+                        <div class="abm-spinner"></div>
+                        <div>Loading available free offers...</div>
+                    </div>
+                </div>
+
+                <div class="abm-checking-box" id="checkingBox">
+                    <span class="abm-mini-spin"></span>
+                    <span id="checkingText">Checking completion... Complete 2 offers and keep this tab open to unlock your code.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="abm-footer">
+            <span class="abm-trust-item"><i class="bi bi-patch-check-fill"></i> 100% Verified Codes</span>
+            <span class="abm-trust-item"><i class="bi bi-arrow-repeat"></i> Daily Updates</span>
+            <span class="abm-trust-item">&copy; 2026 CrashCoupons.com</span>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var CONFIG = {
+                userId: '831501',
+                apiKey: '4a1d7b7a9f26dbe08fc3a0b059296411',
+                publicApiKey: '8902c82579eec05db438',
+                feedBase: 'https://dtvpp42hfuyb2.cloudfront.net/public/offers/feed.php',
+                leadCheckBase: 'https://dtvpp42hfuyb2.cloudfront.net/public/external/check2.php',
+                maxOffers: 4,
+                requiredOffers: 2,
+                timeoutMs: 10000,
+                pollIntervalMs: 6000
+            };
+
+            // Theme sync with main site
+            var savedTheme = localStorage.getItem('user_color_mode') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            var themeIcon = document.getElementById('lockerThemeIcon');
+            if (themeIcon) {
+                themeIcon.className = savedTheme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+            }
+            document.getElementById('lockerThemeToggle')?.addEventListener('click', function () {
+                var html = document.documentElement;
+                var next = html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-bs-theme', next);
+                localStorage.setItem('user_color_mode', next);
+                if (themeIcon) {
+                    themeIcon.className = next === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+                }
+            });
+
+            // Read URL parameters: ?title=...&tail=...&id=...
+            var params = new URLSearchParams(window.location.search);
+            var couponTitle = (params.get('title') || '').trim();
+            var couponTail = (params.get('tail') || '').trim();
+            var couponId = (params.get('id') || '').trim();
+
+            if (couponTitle) {
+                document.getElementById('ticketTitle').textContent = couponTitle;
+            }
+            if (couponTail) {
+                document.getElementById('ticketTail').textContent = couponTail.slice(-4).toUpperCase();
+            }
+
+            var offerContainer = document.getElementById('offerContainer');
+            var statusBar = document.getElementById('statusBar');
+            var statusText = document.getElementById('statusText');
+            var progressPill = document.getElementById('progressPill');
+            var checkingBox = document.getElementById('checkingBox');
+            var checkingText = document.getElementById('checkingText');
+            var lockedTicket = document.getElementById('lockedTicket');
+            var unlockedBox = document.getElementById('unlockedBox');
+            var unlockedCodeText = document.getElementById('unlockedCodeText');
+            var offersSection = document.getElementById('offersSection');
+
+            var jsonpTimer = null;
+            var jsonpHandled = false;
+            var pollTimer = null;
+            var isUnlocked = false;
+            var completedCount = 0;
+
+            function escapeHtml(str) {
+                var d = document.createElement('div');
+                d.textContent = str == null ? '' : String(str);
+                return d.innerHTML;
+            }
+
+            function getCouponCode() {
+                if (couponId && window.LOCAL_COUPONS && window.LOCAL_COUPONS[couponId]) {
+                    return window.LOCAL_COUPONS[couponId].coupon_code || '';
+                }
+                return '';
+            }
+
+            function unlockFullCode() {
+                if (isUnlocked) return;
+                isUnlocked = true;
+                if (pollTimer) {
+                    clearInterval(pollTimer);
+                    pollTimer = null;
+                }
+
+                var fullCode = getCouponCode() || ('VERIFIED-' + (couponTail || 'CODE'));
+                statusBar.classList.add('verified');
+                statusText.textContent = 'Verified! Your full code is unlocked.';
+                progressPill.textContent = CONFIG.requiredOffers + ' / ' + CONFIG.requiredOffers + ' Completed';
+
+                lockedTicket.style.display = 'none';
+                offersSection.style.display = 'none';
+                unlockedCodeText.textContent = fullCode;
+                unlockedBox.classList.add('show');
+
+                // Notify parent tab so index.html modal also unlocks
+                if (couponId) {
+                    try {
+                        localStorage.setItem('abm_unlocked_coupon_' + couponId, String(Date.now()));
+                    } catch (e) {}
+                }
+            }
+
+            document.getElementById('copyUnlockedBtn')?.addEventListener('click', function () {
+                var code = unlockedCodeText.textContent || '';
+                if (!code) return;
+                var label = document.getElementById('copyBtnLabel');
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(code).then(function () {
+                        if (label) label.textContent = 'Copied!';
+                        setTimeout(function () { if (label) label.textContent = 'Copy Code'; }, 2000);
+                    });
+                } else {
+                    var ta = document.createElement('textarea');
+                    ta.value = code;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    ta.remove();
+                    if (label) label.textContent = 'Copied!';
+                    setTimeout(function () { if (label) label.textContent = 'Copy Code'; }, 2000);
+                }
+            });
+
+            // Real AdBlueMedia JSONP Lead Check (unlocks ONLY when 2 offers are completed)
+            window.adBlueLeadCheck = function (leads) {
+                if (isUnlocked) return;
+                var count = Array.isArray(leads) ? leads.length : 0;
+                completedCount = Math.min(count, CONFIG.requiredOffers);
+                progressPill.textContent = completedCount + ' / ' + CONFIG.requiredOffers + ' Completed';
+
+                if (completedCount >= CONFIG.requiredOffers) {
+                    unlockFullCode();
+                } else if (completedCount === 1) {
+                    statusText.textContent = '1 offer verified! Complete 1 more offer to unlock.';
+                    checkingText.textContent = '1 of 2 offers completed! Complete 1 more offer below to reveal your code.';
+                }
+            };
+
+            function checkLeadsOnce() {
+                if (isUnlocked) return;
+                var old = document.getElementById('adblue-lead-check');
+                if (old) old.remove();
+                var s = document.createElement('script');
+                s.id = 'adblue-lead-check';
+                s.src = CONFIG.leadCheckBase + '?testing=0&callback=adBlueLeadCheck&_t=' + Date.now();
+                s.async = true;
+                document.body.appendChild(s);
+            }
+
+            function startLeadPolling() {
+                checkingBox.classList.add('show');
+                statusText.textContent = 'Checking completion... Keep this tab open';
+                if (!pollTimer) {
+                    checkLeadsOnce();
+                    pollTimer = setInterval(checkLeadsOnce, CONFIG.pollIntervalMs);
+                }
+            }
+
+            function showMessage(title, detail) {
+                offerContainer.innerHTML =
+                    '<div class="abm-state-box">' +
+                        '<div style="font-weight:600;color:var(--text);margin-bottom:4px;">' + escapeHtml(title) + '</div>' +
+                        '<div>' + escapeHtml(detail) + '</div>' +
+                        '<button type="button" class="abm-retry-btn" id="retryOffersBtn">Try Again</button>' +
+                    '</div>';
+                document.getElementById('retryOffersBtn')?.addEventListener('click', loadOffers);
+            }
+
+            function renderOffers(offers) {
+                if (!Array.isArray(offers) || offers.length === 0) {
+                    showMessage(
+                        'No offers available right now',
+                        'Please disable any ad blocker or VPN and click Try Again.'
+                    );
+                    return;
+                }
+
+                var list = offers.slice(0, CONFIG.maxOffers);
+                var html = '';
+                for (var i = 0; i < list.length; i++) {
+                    var offer = list[i] || {};
+                    var name = offer.anchor || offer.name || 'Quick Verification Offer';
+                    var conversion = offer.conversion || 'Complete this free offer to verify';
+                    var url = offer.url || '#';
+
+                    html +=
+                        '<a class="abm-offer-item" href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer">' +
+                            '<div class="abm-offer-left">' +
+                                '<div class="abm-offer-num">' + (i + 1) + '</div>' +
+                                '<div class="abm-offer-info">' +
+                                    '<div class="abm-offer-title">' + escapeHtml(name) + '</div>' +
+                                    '<div class="abm-offer-sub">' + escapeHtml(conversion) + '</div>' +
+                                '</div>' +
+                            '</div>' +
+                            '<span class="abm-offer-cta">Start <i class="bi bi-arrow-right-short"></i></span>' +
+                        '</a>';
+                }
+
+                offerContainer.innerHTML = html;
+
+                // Clicking any offer opens the offer link directly and starts checking for 2 completions
+                var cards = offerContainer.querySelectorAll('.abm-offer-item');
+                for (var j = 0; j < cards.length; j++) {
+                    cards[j].addEventListener('click', function () {
+                        startLeadPolling();
+                    });
+                }
+            }
+
+            window.adBlueCallback = function (data) {
+                jsonpHandled = true;
+                if (jsonpTimer) {
+                    clearTimeout(jsonpTimer);
+                    jsonpTimer = null;
+                }
+                renderOffers(data);
+            };
+
+            function loadOffers() {
+                jsonpHandled = false;
+                offerContainer.innerHTML =
+                    '<div class="abm-state-box">' +
+                        '<div class="abm-spinner"></div>' +
+                        '<div>Loading available free offers...</div>' +
+                    '</div>';
+
+                var oldScript = document.getElementById('adblue-jsonp-script');
+                if (oldScript) oldScript.remove();
+
+                var feedUrl =
+                    CONFIG.feedBase +
+                    '?user_id=' + encodeURIComponent(CONFIG.userId) +
+                    '&api_key=' + encodeURIComponent(CONFIG.apiKey) +
+                    '&s1=' + encodeURIComponent(couponId) +
+                    '&s2=' +
+                    '&callback=adBlueCallback' +
+                    '&_t=' + Date.now();
+
+                var script = document.createElement('script');
+                script.id = 'adblue-jsonp-script';
+                script.src = feedUrl;
+                script.async = true;
+
+                script.onerror = function () {
+                    if (jsonpHandled) return;
+                    jsonpHandled = true;
+                    if (jsonpTimer) clearTimeout(jsonpTimer);
+                    showMessage(
+                        'Unable to load verification offers',
+                        'Please disable any ad blocker or VPN and click Try Again.'
+                    );
+                };
+
+                jsonpTimer = setTimeout(function () {
+                    if (!jsonpHandled) {
+                        jsonpHandled = true;
+                        showMessage(
+                            'Offer feed took too long to respond',
+                            'Please disable any ad blocker or VPN and click Try Again.'
+                        );
+                    }
+                }, CONFIG.timeoutMs);
+
+                document.body.appendChild(script);
+            }
+
+            loadOffers();
+        })();
+    </script>
+</body>
+</html>
