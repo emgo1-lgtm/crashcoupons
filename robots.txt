@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /adbluemedia-locker.html
 
-Sitemap: https://crashcoupons-clone.pages.dev/sitemap.xml
+Sitemap: https://crashcoupons.pages.dev/sitemap.xml
