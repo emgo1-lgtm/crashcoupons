@@ -24,9 +24,18 @@
         return min + seed;
     }
 
+    function slugify(text) {
+        return String(text || '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+    }
+
     function renderCouponCard(c) {
         const title = escapeHtml(decodeHtml(c.coupon_title || ''));
-        const brandName = c.brand_name ? escapeHtml(decodeHtml(c.brand_name)) : '';
+        const rawBrand = c.brand_name ? decodeHtml(c.brand_name) : '';
+        const brandName = escapeHtml(rawBrand);
+        const brandSlug = slugify(rawBrand);
         const incent = escapeHtml(decodeHtml(c.coupon_short_incent || 'Free Offer'));
         const shortDesc = escapeHtml(decodeHtml(c.coupon_short_description || ''));
         const rating = Number(c.coupon_rating || 4.9).toFixed(1);
@@ -54,14 +63,16 @@
                     </div>` : ''}
                     ${brandLogoSrc ? `
                     <div class="brand-logo-wrapper">
-                        <img src="${brandLogoSrc}" alt="${brandName || title}" class="brand-logo" loading="lazy">
+                        <a href="/brands/${brandSlug}">
+                            <img src="${brandLogoSrc}" alt="${brandName || title}" class="brand-logo" loading="lazy">
+                        </a>
                     </div>` : ''}
                 </div>
                 <div class="card-body pt-4">
                     <div class="d-flex flex-column h-100">
                         <div class="mb-xl-3 mb-2">
                             <h3 class="card-title h5 fw-600 mb-1">${title}</h3>
-                            ${brandName ? `<p class="card-subtitle small text-third mb-0">${brandName}</p>` : ''}
+                            ${brandName ? `<p class="card-subtitle small text-third mb-0"><a href="/brands/${brandSlug}" class="text-third text-decoration-none hover-accent">${brandName}</a></p>` : ''}
                         </div>
                         <div class="coupon-incentive mt-auto mb-3">
                             <div class="coupon-incentive-inner bg-secondary rounded-3 position-relative overflow-hidden">
